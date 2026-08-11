@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict EhFpl0SI561ytBk0GegQI325sY47YThQ8a6QcL20Q8PIqu2Lumnha7XJ1BHNkYY
+\restrict BuAzNMkwjCj3OL7BOLhWJo232JhwcH8PBTnNSL9tzmu0LPvc1HagStoTGUnaJSd
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -302,6 +302,7 @@ CREATE TABLE public.tickets (
     leave_from date,
     leave_to date,
     hr_reply text,
+    asset_tag character varying(15),
     CONSTRAINT tickets_category_check CHECK (((category)::text = ANY ((ARRAY['HR'::character varying, 'IT'::character varying])::text[]))),
     CONSTRAINT tickets_priority_check CHECK (((priority)::text = ANY ((ARRAY['Low'::character varying, 'Medium'::character varying, 'High'::character varying])::text[]))),
     CONSTRAINT tickets_status_check CHECK (((status)::text = ANY ((ARRAY['Open'::character varying, 'In Progress'::character varying, 'Resolved'::character varying, 'Closed'::character varying, 'Approved'::character varying, 'Rejected'::character varying])::text[])))
@@ -368,10 +369,13 @@ ALTER TABLE ONLY public.salaries ALTER COLUMN id SET DEFAULT nextval('public.sal
 --
 
 COPY public.asset_assignments (id, asset_tag, employee_id, assigned_date, returned_date) FROM stdin;
-1	ASTL-001	EMP004	2026-08-07	\N
 2	ASTH-001	EMP004	2026-08-07	2026-08-07
 3	ASTH-001	EMP003	2026-08-07	\N
 4	ASTK-001	EMP003	2026-08-07	\N
+5	ASTM-001	EMP006	2026-08-07	2026-08-07
+1	ASTL-001	EMP004	2026-08-07	2026-08-10
+6	ASTL-001	EMP003	2026-08-10	\N
+7	ASTM-001	EMP001	2026-08-10	2026-08-10
 \.
 
 
@@ -380,9 +384,10 @@ COPY public.asset_assignments (id, asset_tag, employee_id, assigned_date, return
 --
 
 COPY public.assets (asset_tag, category, status, assigned_to, model, serial_number) FROM stdin;
-ASTL-001	Laptop	Assigned	EMP004	Dell Latitude 4320	98765
 ASTH-001	Headset	Assigned	EMP003	NOISE 4E	67853
 ASTK-001	Keyboard	Assigned	EMP003	Lenovo xcv	7890
+ASTL-001	Laptop	Assigned	EMP003	Dell Latitude 4320	98765
+ASTM-001	Monitor	Maintenance	\N	HP	1235
 \.
 
 
@@ -413,9 +418,9 @@ EMP002	Sarah Mitchell	Human Resources	HR Manager	+1-555-0102	2020-06-01	\N	activ
 EMP004	Sandeep	Engineering	JR Solutions Engineer	6305560838	2026-07-01	\N	active	\N	\N	\N	\N	\N	\N
 EMP005	Test User	Human Resources	Analyst	+1-555-0199	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N
 EMP006	Test User Two	Human Resources	Analyst	+1-555-0200	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N
+EMP003	Mike Chen	Human Resources	IT Administrator	+1-555-0103	2022-01-10	\N	active	\N	\N	\N	\N	\N	\N
 EMP001	John Doe	Human Resources	Senior Software Engineer	+1-555-0101	2021-03-15	\N	active	2001-01-11	1-1109, Shillong	Male	uyoe	890890890	O+
 EMP007	Udhaya S	Engineering	Director-CEO	891036182	2026-08-01	\N	active	\N	\N	\N	\N	\N	\N
-EMP003	Mike Chen	Human Resources	IT Administrator	+1-555-0103	2022-01-10	\N	active	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -450,13 +455,6 @@ COPY public.leaves (id, leave_no, employee_id, leave_type, from_date, to_date, r
 --
 
 COPY public.notifications (id, recipient_role, recipient_id, message, ticket_no, is_read, created_at) FROM stdin;
-3	HR	\N	New Leave ticket TKT-006 raised	TKT-006	t	2026-08-06 12:50:17.547286
-1	HR	\N	New Leave ticket TKT-005 raised	TKT-005	t	2026-08-06 12:39:22.351809
-7	ITADMIN	\N	New Access ticket TKT-008 raised	TKT-008	t	2026-08-06 12:54:08.038958
-13	HR	\N	New Casual leave request LV-003	LV-003	t	2026-08-06 16:05:12.266877
-11	HR	\N	New Casual leave request LV-002	LV-002	t	2026-08-06 15:49:30.544394
-9	HR	\N	New Casual leave request LV-001	LV-001	t	2026-08-06 15:44:00.354599
-5	HR	\N	New Leave ticket TKT-007 raised	TKT-007	t	2026-08-06 12:51:39.768106
 14	\N	EMP001	Your leave request LV-003 was approved	LV-003	t	2026-08-06 16:05:42.257878
 12	\N	EMP001	Your leave request LV-002 was approved	LV-002	t	2026-08-06 15:49:54.250686
 10	\N	EMP001	Your leave request LV-001 was approved	LV-001	t	2026-08-06 15:44:49.423448
@@ -464,6 +462,11 @@ COPY public.notifications (id, recipient_role, recipient_id, message, ticket_no,
 6	\N	EMP001	Your ticket TKT-007 was updated to "Rejected"	TKT-007	t	2026-08-06 12:51:58.528627
 4	\N	EMP001	Your ticket TKT-006 was updated to "Approved"	TKT-006	t	2026-08-06 12:50:36.724505
 2	\N	EMP001	Your ticket TKT-005 was updated to "Approved"	TKT-005	t	2026-08-06 12:41:55.231363
+20	HR	\N	New Management ticket TKT-012 raised	TKT-012	t	2026-08-10 12:02:49.544161
+19	ITADMIN	\N	New Hardware ticket TKT-011 raised	TKT-011	t	2026-08-10 11:09:23.55866
+22	ITADMIN	\N	New Hardware ticket TKT-013 raised	TKT-013	t	2026-08-10 12:10:08.450656
+23	\N	EMP001	Your ticket TKT-013 was updated to "Resolved"	TKT-013	t	2026-08-10 12:10:44.159489
+21	\N	EMP004	Your ticket TKT-011 was updated to "Resolved"	TKT-011	t	2026-08-10 12:05:30.791059
 \.
 
 
@@ -482,15 +485,20 @@ COPY public.salaries (id, employee_id, net_salary, effective_date, basic_salary,
 -- Data for Name: tickets; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tickets (ticket_no, raised_by, category, subject, priority, status, created_at, ticket_type, leave_type, leave_from, leave_to, hr_reply) FROM stdin;
-TKT-001	EMP001	IT	Laptop screen flickering	High	Resolved	2026-08-05 11:53:52.53422	\N	\N	\N	\N	\N
-TKT-002	EMP001	IT	Laptop not working	Medium	Open	2026-08-06 11:48:29.154739	\N	\N	\N	\N	\N
-TKT-003	EMP001	HR	Leave	Medium	Open	2026-08-06 11:49:59.44137	\N	\N	\N	\N	\N
-TKT-004	EMP007	HR	Leave	Medium	Open	2026-08-06 11:51:09.108262	\N	\N	\N	\N	\N
-TKT-005	EMP001	HR	Casual Leave (2026-08-06 to 2026-08-07)	Medium	Approved	2026-08-06 12:39:22.303215	Leave	Casual	2026-08-06	2026-08-07	\N
-TKT-006	EMP001	HR	Sick Leave (2026-08-07 to 2026-08-08)	Low	Approved	2026-08-06 12:50:17.522773	Leave	Sick	2026-08-07	2026-08-08	\N
-TKT-007	EMP001	HR	Sick Leave (2026-08-08 to 2026-08-09)	Medium	Rejected	2026-08-06 12:51:39.745037	Leave	Sick	2026-08-08	2026-08-09	\N
-TKT-008	EMP001	IT	Password error	Medium	Resolved	2026-08-06 12:54:08.014732	Access	\N	\N	\N	password: Appglide@2021
+COPY public.tickets (ticket_no, raised_by, category, subject, priority, status, created_at, ticket_type, leave_type, leave_from, leave_to, hr_reply, asset_tag) FROM stdin;
+TKT-001	EMP001	IT	Laptop screen flickering	High	Resolved	2026-08-05 11:53:52.53422	\N	\N	\N	\N	\N	\N
+TKT-002	EMP001	IT	Laptop not working	Medium	Open	2026-08-06 11:48:29.154739	\N	\N	\N	\N	\N	\N
+TKT-003	EMP001	HR	Leave	Medium	Open	2026-08-06 11:49:59.44137	\N	\N	\N	\N	\N	\N
+TKT-004	EMP007	HR	Leave	Medium	Open	2026-08-06 11:51:09.108262	\N	\N	\N	\N	\N	\N
+TKT-005	EMP001	HR	Casual Leave (2026-08-06 to 2026-08-07)	Medium	Approved	2026-08-06 12:39:22.303215	Leave	Casual	2026-08-06	2026-08-07	\N	\N
+TKT-006	EMP001	HR	Sick Leave (2026-08-07 to 2026-08-08)	Low	Approved	2026-08-06 12:50:17.522773	Leave	Sick	2026-08-07	2026-08-08	\N	\N
+TKT-007	EMP001	HR	Sick Leave (2026-08-08 to 2026-08-09)	Medium	Rejected	2026-08-06 12:51:39.745037	Leave	Sick	2026-08-08	2026-08-09	\N	\N
+TKT-008	EMP001	IT	Password error	Medium	Resolved	2026-08-06 12:54:08.014732	Access	\N	\N	\N	password: Appglide@2021	\N
+TKT-009	EMP004	IT	Laptop Not Turing On	High	Resolved	2026-08-07 17:51:40.41938	Hardware	\N	\N	\N	xyz	\N
+TKT-010	EMP004	IT	Not turining on	Medium	Resolved	2026-08-10 10:29:50.705503	Hardware	\N	\N	\N	Asset ASTL-001 sent for maintenance.	ASTL-001
+TKT-012	EMP004	HR	gvxstyu	Medium	Open	2026-08-10 12:02:49.541089	Management	\N	\N	\N	\N	\N
+TKT-011	EMP004	IT	gvxstyu	Medium	Resolved	2026-08-10 11:09:23.557024	Hardware	\N	\N	\N	xch	\N
+TKT-013	EMP001	IT	Laptop Not Turing On	Medium	Resolved	2026-08-10 12:10:08.440896	Hardware	\N	\N	\N	Asset ASTM-001 sent for maintenance.	ASTM-001
 \.
 
 
@@ -503,8 +511,8 @@ EMP005	test.user@company.com	$2b$10$ANKOYJLXzVSYf/96z4ac0eMQH6n98ny0kppU0vOAvMjs
 EMP006	test.user2@company.com	$2b$10$06HmmgI/aZTmsujRAeQcSOJfkVtUX9v6/tCl6N3XP.FM3.Suoo5hC	EMPLOYEE	active	f
 EMP002	sarah.mitchell@company.com	$2b$10$G71Cb3deQLhuQafaZQWSNOR9EFy6p2LGabE9r7AEb025EFpPUZgzG	HR	active	f
 EMP003	mike.chen@company.com	$2b$10$0zjQ2.KpicYaLstIJxuZEOVGDLsFpmpJ5VefP5emtmWZufVOy1Ko2	ITADMIN	active	f
-EMP001	john.doe@company.com	$2b$10$BaOaC5zPWE1.A7hn2B/nRuF0iXk6PR6PqghQLDddBVp5DG2qBin0i	EMPLOYEE	active	f
 EMP004	sandeep.p@company.com	$2b$10$QvRl5b4ivlbWfDzHIt9qg.7O20uRZBD260KxqrPBka1a/3O4e1BEa	EMPLOYEE	active	f
+EMP001	john.doe@company.com	$2b$10$BaOaC5zPWE1.A7hn2B/nRuF0iXk6PR6PqghQLDddBVp5DG2qBin0i	EMPLOYEE	active	f
 EMP007	udhayas@company.com	$2b$10$fxx.ZyjlEchj5yOMbl1neO1r8B113ycR4HKLXAPWjUbn./hqDvYKa	EMPLOYEE	active	f
 \.
 
@@ -513,7 +521,7 @@ EMP007	udhayas@company.com	$2b$10$fxx.ZyjlEchj5yOMbl1neO1r8B113ycR4HKLXAPWjUbn./
 -- Name: asset_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.asset_assignments_id_seq', 4, true);
+SELECT pg_catalog.setval('public.asset_assignments_id_seq', 7, true);
 
 
 --
@@ -534,7 +542,7 @@ SELECT pg_catalog.setval('public.leaves_id_seq', 3, true);
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 14, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 23, true);
 
 
 --
@@ -777,6 +785,14 @@ ALTER TABLE ONLY public.salaries
 
 
 --
+-- Name: tickets tickets_asset_tag_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tickets
+    ADD CONSTRAINT tickets_asset_tag_fkey FOREIGN KEY (asset_tag) REFERENCES public.assets(asset_tag);
+
+
+--
 -- Name: tickets tickets_raised_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -788,5 +804,5 @@ ALTER TABLE ONLY public.tickets
 -- PostgreSQL database dump complete
 --
 
-\unrestrict EhFpl0SI561ytBk0GegQI325sY47YThQ8a6QcL20Q8PIqu2Lumnha7XJ1BHNkYY
+\unrestrict BuAzNMkwjCj3OL7BOLhWJo232JhwcH8PBTnNSL9tzmu0LPvc1HagStoTGUnaJSd
 
