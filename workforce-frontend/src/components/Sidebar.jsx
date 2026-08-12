@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout, getUser } from '../utils/auth';
 import {
   LayoutDashboard, Users, Building2, Ticket, CalendarDays, Wallet,
-  Package, ClipboardList, UserCircle, LogOut,
+  Package, ClipboardList, UserCircle, LogOut, ChevronLeft, ChevronRight,
 } from 'lucide-react';
 
 const iconMap = {
@@ -27,6 +28,7 @@ const iconMap = {
 function Sidebar({ role, links, activeLink }) {
   const navigate = useNavigate();
   const user = getUser();
+  const [collapsed, setCollapsed] = useState(false);
   const displayName = user?.full_name || user?.employee_id || '?';
   const initial = displayName.charAt(0).toUpperCase();
 
@@ -38,21 +40,37 @@ function Sidebar({ role, links, activeLink }) {
   };
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="sidebar-header-icon">W</div>
-        <div>
-          <h3>WORKFORCE</h3>
-          <span>Management System</span>
-        </div>
+    <div className="sidebar" style={{ width: collapsed ? '76px' : '216px', position: 'relative', transition: 'width 0.15s ease' }}>
+      <div
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          position: 'absolute', top: '20px', right: '-13px', width: '26px', height: '26px',
+          borderRadius: '50%', background: 'white', border: '1px solid #e5f2ec',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.1)', zIndex: 10,
+        }}
+      >
+        {collapsed ? <ChevronRight size={14} color="#0f766e" /> : <ChevronLeft size={14} color="#0f766e" />}
       </div>
 
-      <div className="sidebar-user">
+      <div className="sidebar-header" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
+        <div className="sidebar-header-icon">W</div>
+        {!collapsed && (
+          <div>
+            <h3>WORKFORCE</h3>
+            <span>Management System</span>
+          </div>
+        )}
+      </div>
+
+      <div className="sidebar-user" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
         <div className="sidebar-avatar">{initial}</div>
-        <div>
-          <div className="name">{displayName}</div>
-          <div className="role">{roleLabel}</div>
-        </div>
+        {!collapsed && (
+          <div>
+            <div className="name">{displayName}</div>
+            <div className="role">{roleLabel}</div>
+          </div>
+        )}
       </div>
 
       {links.map((link) => {
@@ -62,16 +80,18 @@ function Sidebar({ role, links, activeLink }) {
             key={link.path}
             className={`sidebar-link ${activeLink === link.path ? 'active' : ''}`}
             onClick={() => navigate(link.path)}
+            title={collapsed ? link.label : ''}
+            style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}
           >
             <Icon size={17} />
-            {link.label}
+            {!collapsed && link.label}
           </div>
         );
       })}
 
-      <div className="sidebar-logout" onClick={handleLogout}>
+      <div className="sidebar-logout" onClick={handleLogout} style={{ justifyContent: collapsed ? 'center' : 'flex-start' }} title={collapsed ? 'Logout' : ''}>
         <LogOut size={16} />
-        Logout
+        {!collapsed && 'Logout'}
       </div>
     </div>
   );

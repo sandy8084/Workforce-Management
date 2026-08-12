@@ -60,13 +60,14 @@ const getAssetById = async (req, res) => {
 
 // CREATE asset
 const createAsset = async (req, res) => {
-  const { category, model, serial_number, status, assigned_to } = req.body;
+  const { category, model, serial_number, status, assigned_to, brand, vendor, purchase_date, ram, storage, processor, installed_os } = req.body;
   try {
     const asset_tag = await generateAssetTag(category);
     await pool.query(
-      `INSERT INTO assets (asset_tag, category, model, serial_number, status, assigned_to)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [asset_tag, category, model, serial_number, status || 'Available', assigned_to || null]
+      `INSERT INTO assets (asset_tag, category, model, serial_number, status, assigned_to, brand, vendor, purchase_date, ram, storage, processor, installed_os)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+      [asset_tag, category, model, serial_number, status || 'Available', assigned_to || null,
+       brand || null, vendor || null, purchase_date || null, ram || null, storage || null, processor || null, installed_os || null]
     );
     res.status(201).json({ message: `Asset ${asset_tag} created successfully`, asset_tag });
   } catch (err) {
