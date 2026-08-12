@@ -209,70 +209,118 @@ function Employees() {
           </div>
 
           {showForm && (
-            <div className="panel">
-              <h3>{editingId ? `Edit Employee — ${editingId}` : 'Add New Employee'}</h3>
-              <form onSubmit={handleSubmit} className="form-grid">
-                <div>
-                  <label style={fieldLabel}>Full Name</label>
-                  <input name="full_name" value={formData.full_name} onChange={handleChange} required style={{ width: '100%' }} />
-                </div>
-                <div>
-                  <label style={fieldLabel}>Email</label>
-                  <input name="email" type="email" value={formData.email} onChange={handleChange} required disabled={!!editingId} style={{ width: '100%' }} />
-                </div>
-                <div>
-                  <label style={fieldLabel}>Role</label>
-                  <select name="role" value={formData.role} onChange={handleChange} disabled={!!editingId} style={{ width: '100%' }}>
-                    <option value="EMPLOYEE">Employee</option>
-                    <option value="HR">HR</option>
-                    <option value="ITADMIN">IT Admin</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={fieldLabel}>Department</label>
-                  <select name="department_name" value={formData.department_name} onChange={handleChange} required style={{ width: '100%' }}>
-                    <option value="">Select Department</option>
-                    {departments.map((dept) => (
-                      <option key={dept.department_name} value={dept.department_name}>{dept.department_name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label style={fieldLabel}>Designation</label>
-                  <input name="designation" value={formData.designation} onChange={handleChange} required style={{ width: '100%' }} />
-                </div>
-                <div>
-                  <label style={fieldLabel}>Phone</label>
-                  <input name="phone" value={formData.phone} onChange={handleChange} style={{ width: '100%' }} />
-                </div>
-                {!editingId && (
+            <div
+              onClick={() => setShowForm(false)}
+              style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 250 }}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  width: 'min(760px, calc(100% - 38px))',
+                  maxHeight: '90vh',
+                  overflowY: 'auto',
+                  background: 'white',
+                  borderRadius: '24px',
+                  padding: '28px 32px',
+                  boxShadow: '0 32px 80px rgba(15, 23, 42, 0.18)',
+                  border: '1px solid rgba(15, 118, 110, 0.12)',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '18px', marginBottom: '22px' }}>
                   <div>
-                    <label style={fieldLabel}>Join Date</label>
-                    <input name="join_date" type="date" value={formData.join_date} onChange={handleChange} required style={{ width: '100%' }} />
+                    <h3 style={{ margin: 0, fontSize: '22px', fontWeight: 700, color: '#0f2a24' }}>
+                      {editingId ? `Edit Employee — ${editingId}` : 'Add New Employee'}
+                    </h3>
+                    <p style={{ margin: '8px 0 0', color: '#52616d', fontSize: '14px' }}>
+                      {editingId ? 'Update the employee record and save your changes.' : 'Add a new employee to the workforce system.'}
+                    </p>
                   </div>
-                )}
-                {editingId && (
-                  <>
+                  <button
+                    onClick={() => setShowForm(false)}
+                    style={{
+                      border: 'none',
+                      background: 'rgba(15, 23, 42, 0.06)',
+                      borderRadius: '50%',
+                      width: '38px',
+                      height: '38px',
+                      cursor: 'pointer',
+                      fontSize: '20px',
+                      color: '#475569',
+                      display: 'grid',
+                      placeItems: 'center',
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                <form onSubmit={handleSubmit} className="form-grid" style={{ gap: '18px', gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))' }}>
+                  <div>
+                    <label style={fieldLabel}>Full Name</label>
+                    <input name="full_name" value={formData.full_name} onChange={handleChange} required style={{ width: '100%' }} />
+                  </div>
+                  <div>
+                    <label style={fieldLabel}>Email</label>
+                    <input name="email" type="email" value={formData.email} onChange={handleChange} required disabled={!!editingId} style={{ width: '100%' }} />
+                  </div>
+                  <div>
+                    <label style={fieldLabel}>Role</label>
+                    <select name="role" value={formData.role} onChange={handleChange} disabled={!!editingId} style={{ width: '100%' }}>
+                      <option value="EMPLOYEE">Employee</option>
+                      <option value="HR">HR</option>
+                      <option value="ITADMIN">IT Admin</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={fieldLabel}>Department</label>
+                    <select name="department_name" value={formData.department_name} onChange={handleChange} required style={{ width: '100%' }}>
+                      <option value="">Select Department</option>
+                      {departments.map((dept) => (
+                        <option key={dept.department_name} value={dept.department_name}>{dept.department_name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={fieldLabel}>Designation</label>
+                    <input name="designation" value={formData.designation} onChange={handleChange} required style={{ width: '100%' }} />
+                  </div>
+                  <div>
+                    <label style={fieldLabel}>Phone</label>
+                    <input name="phone" value={formData.phone} onChange={handleChange} style={{ width: '100%' }} />
+                  </div>
+                  {!editingId && (
                     <div>
-                      <label style={fieldLabel}>Status</label>
-                      <select name="status" value={formData.status} onChange={handleChange} style={{ width: '100%' }}>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                      </select>
+                      <label style={fieldLabel}>Join Date</label>
+                      <input name="join_date" type="date" value={formData.join_date} onChange={handleChange} required style={{ width: '100%' }} />
                     </div>
-                    {formData.status === 'inactive' && (
+                  )}
+                  {editingId && (
+                    <>
                       <div>
-                        <label style={fieldLabel}>Exit Date</label>
-                        <input name="exit_date" type="date" value={formData.exit_date} onChange={handleChange} style={{ width: '100%' }} />
+                        <label style={fieldLabel}>Status</label>
+                        <select name="status" value={formData.status} onChange={handleChange} style={{ width: '100%' }}>
+                          <option value="active">Active</option>
+                          <option value="inactive">Inactive</option>
+                        </select>
                       </div>
-                    )}
-                  </>
-                )}
-                <button type="submit" className="btn-primary" style={{ alignSelf: 'end' }}>
-                  {editingId ? 'Save Changes' : 'Add Employee'}
-                </button>
-              </form>
-              {formError && <p className="error-text">{formError}</p>}
+                      {formData.status === 'inactive' && (
+                        <div>
+                          <label style={fieldLabel}>Exit Date</label>
+                          <input name="exit_date" type="date" value={formData.exit_date} onChange={handleChange} style={{ width: '100%' }} />
+                        </div>
+                      )}
+                    </>
+                  )}
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '4px' }}>
+                    <button type="button" onClick={() => setShowForm(false)} className="btn-secondary" style={{ minWidth: '120px' }}>
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-primary" style={{ minWidth: '150px' }}>
+                      {editingId ? 'Save Changes' : 'Add Employee'}
+                    </button>
+                  </div>
+                </form>
+                {formError && <p className="error-text" style={{ marginTop: '18px' }}>{formError}</p>}
+              </div>
             </div>
           )}
 

@@ -84,30 +84,32 @@ function EmployeeDashboard() {
             <>
               {/* Welcome banner */}
               <div style={{
-                background: 'linear-gradient(135deg, #0f766e, #0b2b26)',
-                borderRadius: '16px',
-                padding: '28px 30px',
+                background: 'linear-gradient(140deg, #115d50 0%, #0b2b26 100%)',
+                borderRadius: '18px',
+                padding: '30px 32px',
                 color: 'white',
                 marginBottom: '24px',
+                boxShadow: '0 24px 55px rgba(15, 61, 52, 0.16)',
+                border: '1px solid rgba(255,255,255,0.08)',
               }}>
-                <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '6px' }}>
+                <h2 style={{ fontSize: '26px',color: 'white', fontWeight: 700, marginBottom: '8px' }}>
                   {greeting()}, {profile?.full_name?.split(' ')[0]} 👋
                 </h2>
-                <p style={{ fontSize: '13.5px', color: '#bcdcd3', marginBottom: '20px' }}>
+                <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.78)', marginBottom: '24px', maxWidth: '640px' }}>
                   Here's what's happening with your workspace today.
                 </p>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.12)', padding: '7px 14px', borderRadius: '20px', fontSize: '12.5px' }}>
-                    <CheckCircle2 size={13} /> {profile?.designation}
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.14)', padding: '9px 16px', borderRadius: '22px', fontSize: '13px', color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <CheckCircle2 size={14} /> {profile?.designation}
                   </span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.12)', padding: '7px 14px', borderRadius: '20px', fontSize: '12.5px' }}>
-                    <Building2 size={13} /> {profile?.department_name}
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.14)', padding: '9px 16px', borderRadius: '22px', fontSize: '13px', color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <Building2 size={14} /> {profile?.department_name}
                   </span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.12)', padding: '7px 14px', borderRadius: '20px', fontSize: '12.5px' }}>
-                    <IdCard size={13} /> {profile?.employee_id}
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.14)', padding: '9px 16px', borderRadius: '22px', fontSize: '13px', color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <IdCard size={14} /> {profile?.employee_id}
                   </span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.12)', padding: '7px 14px', borderRadius: '20px', fontSize: '12.5px' }}>
-                    <Clock size={13} /> {tenureYears} yr with the company
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.14)', padding: '9px 16px', borderRadius: '22px', fontSize: '13px', color: 'white', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <Clock size={14} /> {tenureYears} yr with the company
                   </span>
                 </div>
               </div>
@@ -120,7 +122,7 @@ function EmployeeDashboard() {
                       <div className="label">Assigned Assets</div>
                       <div className="value">{String(assets.length).padStart(2, '0')}</div>
                     </div>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#d9f7e8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(15,118,110,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Package size={17} color="#0f766e" />
                     </div>
                   </div>
@@ -135,7 +137,7 @@ function EmployeeDashboard() {
                       <div className="label">Leave Remaining</div>
                       <div className="value">{casualLeft + sickLeft}</div>
                     </div>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(245,158,11,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <CalendarDays size={17} color="#b45309" />
                     </div>
                   </div>
@@ -150,7 +152,7 @@ function EmployeeDashboard() {
                       <div className="label">Open Tickets</div>
                       <div className="value">{String(openTickets).padStart(2, '0')}</div>
                     </div>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(239,68,68,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Ticket size={17} color="#dc2626" />
                     </div>
                   </div>
@@ -165,7 +167,7 @@ function EmployeeDashboard() {
                       <div className="label">Net Salary</div>
                       <div className="value">{salary?.net_salary?.toLocaleString() || '-'}</div>
                     </div>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Wallet size={17} color="#059669" />
                     </div>
                   </div>

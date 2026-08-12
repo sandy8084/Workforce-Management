@@ -6,7 +6,7 @@ import PageHeader from '../../components/PageHeader';
 import NotificationBell from '../../components/NotificationBell';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { Package, UserCheck, CheckCircle2, Ticket, AlertTriangle, Wrench } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const links = [
   { label: 'Dashboard', path: '/it-dashboard' },
   { label: 'Asset Inventory', path: '/it/assets' },
@@ -18,7 +18,7 @@ const links = [
 ];
 
 const categories = ['Laptop', 'Desktop', 'Monitor', 'Headset', 'Keyboard', 'Mouse', 'Webcam'];
-const STATUS_COLORS = { Assigned: '#3b82f6', Available: '#10b981', Maintenance: '#f59e0b', Retired: '#94a3b8' };
+const STATUS_COLORS = { Assigned: '#19A5A0', Available: '#0C2350', Maintenance: '#F4C81C', Retired: '#F6DC53' };
 const LOW_STOCK_THRESHOLD = 2;
 
 function ITDashboard() {
@@ -68,7 +68,7 @@ function ITDashboard() {
   const maintenanceAssets = assets.filter((a) => a.status === 'Maintenance');
 
   const hasAttentionItems = lowStockCategories.length > 0 || maintenanceAssets.length > 0;
-
+  const navigate = useNavigate();
   return (
     <div className="app-container">
       <Sidebar role={user?.role} userName={user?.employee_id} links={links} activeLink="/it-dashboard" />
@@ -87,9 +87,12 @@ function ITDashboard() {
                       <div className="label">Total Assets</div>
                       <div className="value">{assets.length}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Package size={18} color="#3b82f6" />
+                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#FEF7DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Package size={18} color="#D9A800" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/it/assets')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View inventory →
                   </div>
                 </div>
                 <div className="stat-card">
@@ -98,9 +101,12 @@ function ITDashboard() {
                       <div className="label">Assigned</div>
                       <div className="value">{assigned}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#eef2ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <UserCheck size={18} color="#6366f1" />
+                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#E4F5F4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <UserCheck size={18} color="#19A5A0" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/it/assignments')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View assignments→
                   </div>
                 </div>
                 <div className="stat-card">
@@ -109,9 +115,12 @@ function ITDashboard() {
                       <div className="label">Available</div>
                       <div className="value">{available}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <CheckCircle2 size={18} color="#16a34a" />
+                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#E8ECF3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <CheckCircle2 size={18} color="#0C2350" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/it/assets')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    Browse stock →
                   </div>
                 </div>
                 <div className="stat-card">
@@ -120,9 +129,12 @@ function ITDashboard() {
                       <div className="label">Open IT Tickets</div>
                       <div className="value">{openTickets}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#fffbeb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Ticket size={18} color="#f59e0b" />
+                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#FEF7DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Ticket size={18} color="#D9A800" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/it/tickets')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View tickets →
                   </div>
                 </div>
               </div>
@@ -148,11 +160,11 @@ function ITDashboard() {
                     <h3>Assets by Category</h3>
                     <ResponsiveContainer width="100%" height={260}>
                       <BarChart data={categoryData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#EEF1F6" />
                         <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                         <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
                         <Tooltip />
-                        <Bar dataKey="count" fill="#6366f1" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="count" fill="#19A5A0" radius={[6, 6, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -164,12 +176,12 @@ function ITDashboard() {
 
                     {lowStockCategories.length > 0 && (
                       <div style={{ marginBottom: '16px' }}>
-                        <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>Low Stock</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#7C8AA0', textTransform: 'uppercase', marginBottom: '8px' }}>Low Stock</div>
                         {lowStockCategories.map((c) => (
                           <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0', fontSize: '13px' }}>
-                            <AlertTriangle size={14} color="#f59e0b" />
-                            <span style={{ color: '#334155' }}>{c.name}</span>
-                            <span style={{ marginLeft: 'auto', color: '#94a3b8', fontSize: '12px' }}>{c.available} left</span>
+                            <AlertTriangle size={14} color="#D9A800" />
+                            <span style={{ color: '#0C2350' }}>{c.name}</span>
+                            <span style={{ marginLeft: 'auto', color: '#7C8AA0', fontSize: '12px' }}>{c.available} left</span>
                           </div>
                         ))}
                       </div>
@@ -177,12 +189,12 @@ function ITDashboard() {
 
                     {maintenanceAssets.length > 0 && (
                       <div>
-                        <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>In Maintenance</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#7C8AA0', textTransform: 'uppercase', marginBottom: '8px' }}>In Maintenance</div>
                         {maintenanceAssets.map((a) => (
                           <div key={a.asset_tag} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0', fontSize: '13px' }}>
-                            <Wrench size={14} color="#64748b" />
-                            <span style={{ color: '#334155' }}>{a.asset_tag}</span>
-                            <span style={{ marginLeft: 'auto', color: '#94a3b8', fontSize: '12px' }}>{a.model || a.category}</span>
+                            <Wrench size={14} color="#0C2350" />
+                            <span style={{ color: '#0C2350' }}>{a.asset_tag}</span>
+                            <span style={{ marginLeft: 'auto', color: '#7C8AA0', fontSize: '12px' }}>{a.model || a.category}</span>
                           </div>
                         ))}
                       </div>

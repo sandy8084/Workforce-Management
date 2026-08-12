@@ -6,7 +6,7 @@ import PageHeader from '../../components/PageHeader';
 import NotificationBell from '../../components/NotificationBell';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Users, UserCheck, Building2, CalendarClock } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const links = [
   { label: 'Dashboard', path: '/hr-dashboard' },
   { label: 'Employees', path: '/hr/employees' },
@@ -51,7 +51,7 @@ function HRDashboard() {
     name: dept.department_name,
     value: employees.filter((e) => e.department_name === dept.department_name).length,
   })).filter((d) => d.value > 0);
-
+  const navigate = useNavigate();
   return (
     <div className="app-container">
       <Sidebar role={user?.role} userName={user?.employee_id} links={links} activeLink="/hr-dashboard" />
@@ -75,6 +75,9 @@ function HRDashboard() {
                       <Users size={18} color="#3b82f6" />
                     </div>
                   </div>
+                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View Total employees →
+                  </div>
                 </div>
 
                 <div className="stat-card">
@@ -86,6 +89,9 @@ function HRDashboard() {
                     <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <UserCheck size={18} color="#16a34a" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View Active employees →
                   </div>
                 </div>
 
@@ -99,17 +105,23 @@ function HRDashboard() {
                       <Building2 size={18} color="#8b5cf6" />
                     </div>
                   </div>
+                  <div onClick={() => navigate('/hr/departments')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View Departments →
+                  </div>
                 </div>
 
                 <div className="stat-card">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                      <div className="label">Pending Leave Requests</div>
+                      <div className="label">Leave Requests</div>
                       <div className="value">{pendingLeaves}</div>
                     </div>
                     <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#fffbeb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <CalendarClock size={18} color="#f59e0b" />
                     </div>
+                  </div>
+                  <div onClick={() => navigate('/hr/leave')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                    View leave requests →
                   </div>
                 </div>
               </div>

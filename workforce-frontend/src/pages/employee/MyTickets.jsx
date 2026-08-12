@@ -102,60 +102,65 @@ function MyTickets() {
           </div>
 
           {showForm && (
-            <div className="panel">
-              <h3>Raise a Ticket</h3>
-              <form onSubmit={handleSubmit} className="form-grid">
-                <div>
-                  <label style={fieldLabel}>Category</label>
-                  <select name="category" value={formData.category} onChange={handleCategoryChange} style={{ width: '100%' }}>
-                    <option value="HR">HR</option>
-                    <option value="IT">IT</option>
-                  </select>
+            <div onClick={() => setShowForm(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200 }}>
+              <div onClick={(e) => e.stopPropagation()} style={{ background: 'white', borderRadius: '14px', padding: '28px', width: '460px', maxWidth: '90vw' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <h3 style={{ margin: 0 }}>Raise a Ticket</h3>
+                  <button onClick={() => setShowForm(false)} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '20px', color: '#94a3b8' }}>×</button>
                 </div>
-
-                <div>
-                  <label style={fieldLabel}>Type</label>
-                  <select name="ticket_type" value={formData.ticket_type} onChange={handleChange} style={{ width: '100%' }}>
-                    {formData.category === 'HR' ? (
-                      <option value="Management">Management</option>
-                    ) : (
-                      <>
-                        <option value="Hardware">Hardware</option>
-                        <option value="Software">Software</option>
-                        <option value="Access">Access</option>
-                      </>
-                    )}
-                  </select>
-                </div>
-                {formData.category === 'IT' && formData.ticket_type !== 'Access' && (
+                <form onSubmit={handleSubmit} className="form-grid">
                   <div>
-                    <label style={fieldLabel}>Related Asset (optional)</label>
-                    <select name="asset_tag" value={formData.asset_tag} onChange={handleChange} style={{ width: '100%' }}>
-                      <option value="">None / Not sure</option>
-                      {myAssets.map((a) => (
-                        <option key={a.asset_tag} value={a.asset_tag}>{a.asset_tag} — {a.model || a.category}</option>
-                      ))}
+                    <label style={fieldLabel}>Category</label>
+                    <select name="category" value={formData.category} onChange={handleCategoryChange} style={{ width: '100%' }}>
+                      <option value="HR">HR</option>
+                      <option value="IT">IT</option>
                     </select>
                   </div>
-                )}
-                <div style={{ gridColumn: '1 / -1' }}>
-                  <label style={fieldLabel}>Description</label>
-                  <input name="subject" value={formData.subject} onChange={handleChange} required style={{ width: '100%' }} placeholder="Describe the issue" />
-                </div>
 
-                <div>
-                  <label style={fieldLabel}>Priority</label>
-                  <select name="priority" value={formData.priority} onChange={handleChange} style={{ width: '100%' }}>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
+                  <div>
+                    <label style={fieldLabel}>Type</label>
+                    <select name="ticket_type" value={formData.ticket_type} onChange={handleChange} style={{ width: '100%' }}>
+                      {formData.category === 'HR' ? (
+                        <option value="Management">Management</option>
+                      ) : (
+                        <>
+                          <option value="Hardware">Hardware</option>
+                          <option value="Software">Software</option>
+                          <option value="Access">Access</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+                  {formData.category === 'IT' && formData.ticket_type !== 'Access' && (
+                    <div>
+                      <label style={fieldLabel}>Related Asset (optional)</label>
+                      <select name="asset_tag" value={formData.asset_tag} onChange={handleChange} style={{ width: '100%' }}>
+                        <option value="">None / Not sure</option>
+                        {myAssets.map((a) => (
+                          <option key={a.asset_tag} value={a.asset_tag}>{a.asset_tag} — {a.model || a.category}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    <label style={fieldLabel}>Description</label>
+                    <input name="subject" value={formData.subject} onChange={handleChange} required style={{ width: '100%' }} placeholder="Describe the issue" />
+                  </div>
 
-                <button type="submit" className="btn-primary" style={{ alignSelf: 'end' }}>Submit</button>
-              </form>
-              {formError && <p className="error-text">{formError}</p>}
-              {formSuccess && <p className="success-text">{formSuccess}</p>}
+                  <div>
+                    <label style={fieldLabel}>Priority</label>
+                    <select name="priority" value={formData.priority} onChange={handleChange} style={{ width: '100%' }}>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" className="btn-primary" style={{ alignSelf: 'end' }}>Submit</button>
+                </form>
+                {formError && <p className="error-text">{formError}</p>}
+                {formSuccess && <p className="success-text">{formSuccess}</p>}
+              </div>
             </div>
           )}
 

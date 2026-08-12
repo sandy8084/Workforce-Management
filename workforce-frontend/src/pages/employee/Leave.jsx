@@ -100,36 +100,41 @@ function Leave() {
               </div>
             </div>
 
-            {showForm && (
-              <div className="panel">
-                <h3>Apply for Leave</h3>
-                <form onSubmit={handleSubmit} className="form-grid">
-                  <div>
-                    <label style={fieldLabel}>Leave Type</label>
-                    <select name="leave_type" value={formData.leave_type} onChange={handleChange} style={{ width: '100%' }}>
-                      <option value="Casual">Casual</option>
-                      <option value="Sick">Sick</option>
-                      <option value="Emergency">Emergency</option>
-                    </select>
+           {showForm && (
+              <div onClick={() => setShowForm(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200 }}>
+                <div onClick={(e) => e.stopPropagation()} style={{ background: 'white', borderRadius: '14px', padding: '28px', width: '460px', maxWidth: '90vw' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <h3 style={{ margin: 0 }}>Apply for Leave</h3>
+                    <button onClick={() => setShowForm(false)} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '20px', color: '#94a3b8' }}>×</button>
                   </div>
-                  <div>
-                    <label style={fieldLabel}>From</label>
-                    <input name="from_date" type="date" value={formData.from_date} onChange={handleChange} required style={{ width: '100%' }} />
-                  </div>
-                  <div>
-                    <label style={fieldLabel}>To</label>
-                    <input name="to_date" type="date" value={formData.to_date} onChange={handleChange} required style={{ width: '100%' }} />
-                  </div>
-                  <div style={{ gridColumn: '1 / -1' }}>
-                    <label style={fieldLabel}>Reason</label>
-                    <input name="reason" value={formData.reason} onChange={handleChange} required style={{ width: '100%' }} placeholder="Reason for leave" />
-                  </div>
-                  <button type="submit" className="btn-primary" style={{ alignSelf: 'end' }}>Submit Request</button>
-                </form>
-                {formError && <p className="error-text">{formError}</p>}
-                {formSuccess && <p className="success-text">{formSuccess}</p>}
+                  <form onSubmit={handleSubmit} className="form-grid">
+                    <div>
+                      <label style={fieldLabel}>Leave Type</label>
+                      <select name="leave_type" value={formData.leave_type} onChange={handleChange} style={{ width: '100%' }}>
+                        <option value="Casual">Casual</option>
+                        <option value="Sick">Sick</option>
+                        <option value="Emergency">Emergency</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={fieldLabel}>From</label>
+                      <input name="from_date" type="date" value={formData.from_date} onChange={handleChange} required style={{ width: '100%' }} />
+                    </div>
+                    <div>
+                      <label style={fieldLabel}>To</label>
+                      <input name="to_date" type="date" value={formData.to_date} onChange={handleChange} required style={{ width: '100%' }} />
+                    </div>
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      <label style={fieldLabel}>Reason</label>
+                      <input name="reason" value={formData.reason} onChange={handleChange} required style={{ width: '100%' }} placeholder="Reason for leave" />
+                    </div>
+                    <button type="submit" className="btn-primary" style={{ alignSelf: 'end' }}>Submit Request</button>
+                  </form>
+                  {formError && <p className="error-text">{formError}</p>}
+                  {formSuccess && <p className="success-text">{formSuccess}</p>}
+                </div>
               </div>
-            )}
+           )}
 
             <div className="panel">
               <h3>Leave History</h3>
