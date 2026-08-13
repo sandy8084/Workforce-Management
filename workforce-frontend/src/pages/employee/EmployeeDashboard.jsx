@@ -84,12 +84,12 @@ function EmployeeDashboard() {
             <>
               {/* Welcome banner */}
               <div style={{
-                background: 'linear-gradient(140deg, #115d50 0%, #0b2b26 100%)',
+                background: 'linear-gradient(140deg, #2AA79B 0%, #1f7a70 55%, #0B2A38 100%)',
                 borderRadius: '18px',
                 padding: '30px 32px',
                 color: 'white',
                 marginBottom: '24px',
-                boxShadow: '0 24px 55px rgba(15, 61, 52, 0.16)',
+                boxShadow: '0 24px 55px rgba(42,167,155,0.3)',
                 border: '1px solid rgba(255,255,255,0.08)',
               }}>
                 <h2 style={{ fontSize: '26px',color: 'white', fontWeight: 700, marginBottom: '8px' }}>
@@ -116,62 +116,94 @@ function EmployeeDashboard() {
 
               {/* Stat cards */}
               <div className="stat-cards">
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(235,245,242,0.6) 100%)' }}>
+                  {/* Top accent bar */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #2AA79B 0%, transparent 100%)' }} />
+                  {/* Decorative blob top-right */}
+                  <div style={{ position: 'absolute', top: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(42,167,155,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  {/* Decorative blob bottom-left */}
+                  <div style={{ position: 'absolute', bottom: '-50px', left: '-40px', width: '160px', height: '160px', background: 'radial-gradient(circle, rgba(255,200,0,0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(30px)' }} />
+                  {/* Corner accent */}
+                  <div style={{ position: 'absolute', top: '0px', right: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(42,167,155,0.15), transparent)', borderBottomLeftRadius: '60px' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Assigned Assets</div>
-                      <div className="value">{String(assets.length).padStart(2, '0')}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #0f766e 0%, #2AA79B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{String(assets.length).padStart(2, '0')}</div>
                     </div>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(15,118,110,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Package size={17} color="#0f766e" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(42,167,155,0.25), rgba(15,118,110,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(42,167,155,0.2)', border: '1px solid rgba(42,167,155,0.3)' }}>
+                      <Package size={20} color="#0f766e" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/employee/assets')} style={{ fontSize: '12px', color: '#0f766e', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/employee/assets')} style={{ fontSize: '12px', color: '#0f766e', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View assets →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(255,248,235,0.6) 100%)' }}>
+                  {/* Top accent bar */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #FFC800 0%, transparent 100%)' }} />
+                  {/* Decorative blob top-left */}
+                  <div style={{ position: 'absolute', top: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(255,200,0,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  {/* Decorative blob bottom-right */}
+                  <div style={{ position: 'absolute', bottom: '-50px', right: '-40px', width: '160px', height: '160px', background: 'radial-gradient(circle, rgba(42,167,155,0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(30px)' }} />
+                  {/* Corner accent */}
+                  <div style={{ position: 'absolute', top: '0px', left: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(255,200,0,0.15), transparent)', borderBottomRightRadius: '60px' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Leave Remaining</div>
-                      <div className="value">{casualLeft + sickLeft}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #b45309 0%, #FFC800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{casualLeft + sickLeft}</div>
                     </div>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(245,158,11,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <CalendarDays size={17} color="#b45309" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(255,200,0,0.25), rgba(245,158,11,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(255,200,0,0.2)', border: '1px solid rgba(255,200,0,0.3)' }}>
+                      <CalendarDays size={20} color="#b45309" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/employee/leave')} style={{ fontSize: '12px', color: '#0f766e', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/employee/leave')} style={{ fontSize: '12px', color: '#b45309', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     Apply for leave →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(254,242,242,0.6) 100%)' }}>
+                  {/* Top accent bar */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #dc2626 0%, transparent 100%)' }} />
+                  {/* Decorative blob top-right */}
+                  <div style={{ position: 'absolute', top: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(220,38,38,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  {/* Decorative blob bottom-left */}
+                  <div style={{ position: 'absolute', bottom: '-50px', left: '-40px', width: '160px', height: '160px', background: 'radial-gradient(circle, rgba(42,167,155,0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(30px)' }} />
+                  {/* Corner accent */}
+                  <div style={{ position: 'absolute', top: '0px', right: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(220,38,38,0.15), transparent)', borderBottomLeftRadius: '60px' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Open Tickets</div>
-                      <div className="value">{String(openTickets).padStart(2, '0')}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{String(openTickets).padStart(2, '0')}</div>
                     </div>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(239,68,68,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Ticket size={17} color="#dc2626" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(220,38,38,0.25), rgba(239,68,68,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(220,38,38,0.2)', border: '1px solid rgba(220,38,38,0.3)' }}>
+                      <Ticket size={20} color="#dc2626" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/employee/tickets')} style={{ fontSize: '12px', color: '#0f766e', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/employee/tickets')} style={{ fontSize: '12px', color: '#dc2626', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     Track tickets →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(236,254,245,0.6) 100%)' }}>
+                  {/* Top accent bar */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #059669 0%, transparent 100%)' }} />
+                  {/* Decorative blob top-left */}
+                  <div style={{ position: 'absolute', top: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  {/* Decorative blob bottom-right */}
+                  <div style={{ position: 'absolute', bottom: '-50px', right: '-40px', width: '160px', height: '160px', background: 'radial-gradient(circle, rgba(255,200,0,0.15) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(30px)' }} />
+                  {/* Corner accent */}
+                  <div style={{ position: 'absolute', top: '0px', left: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(16,185,129,0.15), transparent)', borderBottomRightRadius: '60px' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Net Salary</div>
-                      <div className="value">{salary?.net_salary?.toLocaleString() || '-'}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #065f46 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',fontSize: '28px', fontWeight: 900 }}>{salary?.net_salary?.toLocaleString() || '-'}</div>
                     </div>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '14px', background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Wallet size={17} color="#059669" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                      <Wallet size={20} color="#059669" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/employee/salary')} style={{ fontSize: '12px', color: '#0f766e', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/employee/salary')} style={{ fontSize: '12px', color: '#059669', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View breakdown →
                   </div>
                 </div>

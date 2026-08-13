@@ -13,9 +13,11 @@ const links = [
   { label: 'Departments', path: '/hr/departments' },
   { label: 'Payroll', path: '/hr/payroll' },
   { label: 'Leave Management', path: '/hr/leave' },
+  { label: 'My Profile', path: '/hr/my-profile' },
+  { label: 'My Salary', path: '/hr/my-salary' },
 ];
 
-const COLORS = ['#6366f1', '#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#f59e0b'];
+const COLORS = ['#2AA79B', '#23897f', '#FFC800', '#0B2A38', '#5C7F93', '#FFD700'];
 
 function HRDashboard() {
   const user = getUser();
@@ -64,63 +66,103 @@ function HRDashboard() {
         <div className="page-body">
           {loading ? <p>Loading...</p> : (
             <>
+              {/* Welcome banner */}
+              <div style={{
+                background: 'linear-gradient(140deg, #2AA79B 0%, #1f7a70 55%, #0B2A38 100%)',
+                borderRadius: '18px',
+                padding: '30px 32px',
+                color: 'white',
+                marginBottom: '24px',
+                boxShadow: '0 24px 55px rgba(42,167,155,0.3)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}>
+                <h2 style={{ fontSize: '26px', color: 'white', fontWeight: 700, marginBottom: '8px' }}>
+                  Welcome, {user?.full_name?.split(' ')[0] || user?.employee_id} 👋
+                </h2>
+                <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.78)', marginBottom: 0, maxWidth: '640px' }}>
+                  Manage your HR operations. You have {pendingLeaves} pending leave request{pendingLeaves !== 1 ? 's' : ''} to review today.
+                </p>
+              </div>
+
               <div className="stat-cards">
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {/* Total Employees - Teal */}
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(42,167,155,0.08) 100%)' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #2AA79B 0%, transparent 100%)' }} />
+                  <div style={{ position: 'absolute', top: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(42,167,155,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', bottom: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(42,167,155,0.2) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', top: '0px', right: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(42,167,155,0.15), transparent)', borderRadius: '0 0 0 30px' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Total Employees</div>
-                      <div className="value">{employees.length}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #2AA79B, #23897f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{employees.length}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Users size={18} color="#3b82f6" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(42,167,155,0.25), rgba(35,137,127,0.15))', boxShadow: '0 8px 20px rgba(42,167,155,0.2)', border: '1px solid rgba(42,167,155,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Users size={20} color="#2AA79B" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#2AA79B', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View Total employees →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {/* Active Employees - Green */}
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(5,150,105,0.08) 100%)' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #059669 0%, transparent 100%)' }} />
+                  <div style={{ position: 'absolute', top: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(5,150,105,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', bottom: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(5,150,105,0.2) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', top: '0px', left: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(5,150,105,0.15), transparent)', borderRadius: '0 30px 0 0' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Active Employees</div>
-                      <div className="value">{active}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #059669, #047857)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{active}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <UserCheck size={18} color="#16a34a" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(5,150,105,0.25), rgba(4,120,87,0.15))', boxShadow: '0 8px 20px rgba(5,150,105,0.2)', border: '1px solid rgba(5,150,105,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <UserCheck size={20} color="#059669" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/hr/employees')} style={{ fontSize: '12px', color: '#059669', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View Active employees →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {/* Departments - Purple */}
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(139,92,246,0.08) 100%)' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #8b5cf6 0%, transparent 100%)' }} />
+                  <div style={{ position: 'absolute', top: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', bottom: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', bottom: '0px', right: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(139,92,246,0.15), transparent)', borderRadius: '30px 0 0 0' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Departments</div>
-                      <div className="value">{departments.length}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{departments.length}</div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#faf5ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Building2 size={18} color="#8b5cf6" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(139,92,246,0.25), rgba(124,58,237,0.15))', boxShadow: '0 8px 20px rgba(139,92,246,0.2)', border: '1px solid rgba(139,92,246,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Building2 size={20} color="#8b5cf6" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/hr/departments')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/hr/departments')} style={{ fontSize: '12px', color: '#8b5cf6', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View Departments →
                   </div>
                 </div>
 
-                <div className="stat-card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {/* Leave Requests - Orange */}
+                <div className="stat-card" style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(245,249,250,0.95) 0%, rgba(255,200,0,0.08) 100%)' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '5px', background: 'linear-gradient(90deg, #FFC800 0%, transparent 100%)' }} />
+                  <div style={{ position: 'absolute', top: '-40px', left: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(255,200,0,0.25) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', bottom: '-40px', right: '-30px', width: '140px', height: '140px', background: 'radial-gradient(circle, rgba(255,200,0,0.2) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(25px)' }} />
+                  <div style={{ position: 'absolute', top: '0px', left: '0px', width: '60px', height: '60px', background: 'linear-gradient(135deg, rgba(255,200,0,0.15), transparent)', borderRadius: '0 30px 0 0' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Leave Requests</div>
-                      <div className="value">{pendingLeaves}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #FFC800, #FFD700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>
+                        {pendingLeaves}
+                      </div>
                     </div>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: '#fffbeb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <CalendarClock size={18} color="#f59e0b" />
+                    <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(255,200,0,0.25), rgba(255,215,0,0.15))', boxShadow: '0 8px 20px rgba(255,200,0,0.2)', border: '1px solid rgba(255,200,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <CalendarClock size={20} color="#FFC800" />
                     </div>
                   </div>
-                  <div onClick={() => navigate('/hr/leave')} style={{ fontSize: '12px', color: '#0F8A86', fontWeight: 600, marginTop: '10px', cursor: 'pointer' }}>
+                  <div onClick={() => navigate('/hr/leave')} style={{ fontSize: '12px', color: '#FFC800', fontWeight: 600, marginTop: '16px', cursor: 'pointer', position: 'relative', zIndex: 1 }}>
                     View leave requests →
                   </div>
                 </div>

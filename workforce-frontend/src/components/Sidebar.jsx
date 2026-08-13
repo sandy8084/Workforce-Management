@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout, getUser } from '../utils/auth';
 import {
   LayoutDashboard, Users, Building2, Ticket, CalendarDays, Wallet,
   Package, ClipboardList, UserCircle, LogOut, ChevronLeft, ChevronRight,
+  UserRound,
 } from 'lucide-react';
-
+import { useState } from 'react';
+import { CircleUserRound } from 'lucide-react';
 const iconMap = {
   'Dashboard': LayoutDashboard,
   'Employees': Users,
@@ -39,18 +40,25 @@ function Sidebar({ role, links, activeLink }) {
     navigate('/');
   };
 
+  const renderAvatarContent = () => {
+    if (user?.gender === 'Male' || user?.gender === 'Female') {
+      return <UserRound size={20} color="white" fill="white" strokeWidth={1} />;
+    }
+    return initial;
+  };
+
   return (
     <div className="sidebar" style={{ width: collapsed ? '76px' : '216px', position: 'relative', transition: 'width 0.15s ease' }}>
       <div
         onClick={() => setCollapsed(!collapsed)}
         style={{
           position: 'absolute', top: '20px', right: '-13px', width: '26px', height: '26px',
-          borderRadius: '50%', background: 'white', border: '1px solid #e5f2ec',
+          borderRadius: '50%', background: 'white', border: '1px solid #e2e8f0',
           display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.1)', zIndex: 10,
+          boxShadow: '0 2px 6px rgba(0,0,0,0.1)', zIndex: 60,
         }}
       >
-        {collapsed ? <ChevronRight size={14} color="#0f766e" /> : <ChevronLeft size={14} color="#0f766e" />}
+        {collapsed ? <ChevronRight size={14} color="#0284c7" /> : <ChevronLeft size={14} color="#0284c7" />}
       </div>
 
       <div className="sidebar-header" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
@@ -64,7 +72,9 @@ function Sidebar({ role, links, activeLink }) {
       </div>
 
       <div className="sidebar-user" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
-        <div className="sidebar-avatar">{initial}</div>
+        <div className="sidebar-avatar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {renderAvatarContent()}
+        </div>
         {!collapsed && (
           <div>
             <div className="name">{displayName}</div>

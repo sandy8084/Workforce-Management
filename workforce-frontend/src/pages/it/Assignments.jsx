@@ -47,7 +47,7 @@ function Assignments() {
                   <tr key={a.id}>
                     <td>{a.asset_tag}</td>
                     <td>{a.category}</td>
-                    <td>{a.employee_name}</td>
+                    <td>{a.employee_name} ({a.employee_id})</td>
                     <td>{a.assigned_date?.slice(0, 10)}</td>
                     <td>{a.returned_date ? a.returned_date.slice(0, 10) : <span className="badge assigned">Active</span>}</td>
                   </tr>

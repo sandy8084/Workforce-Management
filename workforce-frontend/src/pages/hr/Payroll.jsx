@@ -12,6 +12,8 @@ const links = [
   { label: 'Departments', path: '/hr/departments' },
   { label: 'Payroll', path: '/hr/payroll' },
   { label: 'Leave Management', path: '/hr/leave' },
+  { label: 'My Profile', path: '/hr/my-profile' },
+  { label: 'My Salary', path: '/hr/my-salary' },
 ];
 
 const emptyForm = { employee_id: '', basic_salary: '', hra: '', effective_date: '' };

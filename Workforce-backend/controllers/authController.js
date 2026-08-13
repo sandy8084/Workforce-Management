@@ -8,9 +8,9 @@ const login = async (req, res) => {
   try {
     // 1. Find the user by email, joined with employees to get their name
     const result = await pool.query(
-      `SELECT u.*, e.full_name FROM users u
-       LEFT JOIN employees e ON u.employee_id = e.employee_id
-       WHERE u.email = $1`,
+      `SELECT u.*, e.full_name, e.gender FROM users u
+      LEFT JOIN employees e ON u.employee_id = e.employee_id
+      WHERE u.email = $1`,
       [email]
     );
 
@@ -45,6 +45,7 @@ const login = async (req, res) => {
       user: {
         employee_id: user.employee_id,
         full_name: user.full_name,
+        gender: user.gender,
         email: user.email,
         role: user.role,
         must_change_password: user.must_change_password,

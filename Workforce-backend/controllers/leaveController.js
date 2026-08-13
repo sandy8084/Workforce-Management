@@ -82,7 +82,9 @@ const respondToLeave = async (req, res) => {
     if (leaveResult.rows.length === 0) return res.status(404).json({ message: 'Leave not found' });
     const leave = leaveResult.rows[0];
 
-    const days = Math.floor((new Date(leave.to_date) - new Date(leave.from_date)) / (1000 * 60 * 60 * 24)) + 1;
+    const from = new Date(leave.from_date + 'T00:00:00Z');
+    const to = new Date(leave.to_date + 'T00:00:00Z');
+    const days = Math.max(1, Math.round((to - from) / (1000 * 60 * 60 * 24)));
 
     await pool.query(`UPDATE leaves SET status = $1 WHERE leave_no = $2`, [status, leave_no]);
 

@@ -173,4 +173,19 @@ const updateMyProfile = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-module.exports = { generateEmployeeId, getAllEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee, getMyProfile, updateMyProfile };
+const uploadProfilePicture = async (req, res) => {
+  const { employee_id } = req.user;
+  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+
+  try {
+    await pool.query(
+      `UPDATE employees SET profile_picture = $1 WHERE employee_id = $2`,
+      [req.file.filename, employee_id]
+    );
+    res.json({ message: 'Profile picture updated', profile_picture: req.file.filename });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+module.exports = { generateEmployeeId, getAllEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee, getMyProfile, updateMyProfile, uploadProfilePicture };

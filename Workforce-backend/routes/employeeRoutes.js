@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { verifyToken, allowRoles } = require('../middleware/authMiddleware');
 const {
-  getAllEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee, getMyProfile, updateMyProfile
+  getAllEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee, getMyProfile, updateMyProfile, uploadProfilePicture
 } = require('../controllers/employeeController');
+const upload = require('../middleware/upload');
 
 // All routes require login, and only HR can access them
 router.get('/me', verifyToken, getMyProfile);
 router.get('/me', verifyToken, getMyProfile);
 router.put('/me', verifyToken, updateMyProfile);   // ← must come BEFORE /:id routes
-
+router.post('/me/picture', verifyToken, upload.single('picture'), uploadProfilePicture);
 router.get('/', verifyToken, allowRoles('HR'), getAllEmployees);
 router.get('/:id', verifyToken, allowRoles('HR'), getEmployeeById);
 router.post('/', verifyToken, allowRoles('HR'), createEmployee);

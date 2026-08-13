@@ -20,6 +20,8 @@ import ITMyProfile from './pages/it/MyProfile';
 import ITMySalary from './pages/it/MySalary';
 import ITMyLeave from './pages/it/MyLeave';
 import { ToastProvider } from './context/ToastContext';
+import HRMyProfile from './pages/hr/MyProfile';
+import HRMySalary from './pages/hr/MySalary';
 function App() {
   return (
     <ToastProvider>
@@ -32,6 +34,8 @@ function App() {
           <Route path="/hr/departments" element={<Departments />} />
           <Route path="/hr/payroll" element={<Payroll />} />
           <Route path="/hr/leave" element={<LeaveManagement />} />
+          <Route path="/hr/my-profile" element={<HRMyProfile />} />
+          <Route path="/hr/my-salary" element={<HRMySalary />} /> 
           
           <Route path="/it-dashboard" element={<ITDashboard />} />
           <Route path="/it/assets" element={<AssetInventory />} />

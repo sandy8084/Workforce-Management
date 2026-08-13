@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict BuAzNMkwjCj3OL7BOLhWJo232JhwcH8PBTnNSL9tzmu0LPvc1HagStoTGUnaJSd
+\restrict qWqnhP23hIBCuZpdISMaMpFvLW1wRgS3ilcak4X8alwYpwUEHJDlILbdus16PPc
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -71,6 +71,13 @@ CREATE TABLE public.assets (
     assigned_to character varying(10),
     model character varying(100),
     serial_number character varying(100),
+    brand character varying(50),
+    vendor character varying(100),
+    purchase_date date,
+    ram character varying(20),
+    storage character varying(30),
+    processor character varying(60),
+    installed_os character varying(40),
     CONSTRAINT assets_category_check CHECK (((category)::text = ANY ((ARRAY['Laptop'::character varying, 'Desktop'::character varying, 'Monitor'::character varying, 'Headset'::character varying, 'Keyboard'::character varying, 'Mouse'::character varying, 'Webcam'::character varying])::text[]))),
     CONSTRAINT assets_status_check CHECK (((status)::text = ANY ((ARRAY['Assigned'::character varying, 'Available'::character varying, 'Maintenance'::character varying, 'Retired'::character varying])::text[])))
 );
@@ -146,6 +153,7 @@ CREATE TABLE public.employees (
     emergency_contact_name character varying(100),
     emergency_contact_phone character varying(20),
     blood_group character varying(5),
+    profile_picture character varying(255),
     CONSTRAINT employees_status_check CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'inactive'::character varying])::text[])))
 );
 
@@ -376,6 +384,7 @@ COPY public.asset_assignments (id, asset_tag, employee_id, assigned_date, return
 1	ASTL-001	EMP004	2026-08-07	2026-08-10
 6	ASTL-001	EMP003	2026-08-10	\N
 7	ASTM-001	EMP001	2026-08-10	2026-08-10
+8	ASTL-002	EMP005	2026-08-12	\N
 \.
 
 
@@ -383,11 +392,12 @@ COPY public.asset_assignments (id, asset_tag, employee_id, assigned_date, return
 -- Data for Name: assets; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.assets (asset_tag, category, status, assigned_to, model, serial_number) FROM stdin;
-ASTH-001	Headset	Assigned	EMP003	NOISE 4E	67853
-ASTK-001	Keyboard	Assigned	EMP003	Lenovo xcv	7890
-ASTL-001	Laptop	Assigned	EMP003	Dell Latitude 4320	98765
-ASTM-001	Monitor	Maintenance	\N	HP	1235
+COPY public.assets (asset_tag, category, status, assigned_to, model, serial_number, brand, vendor, purchase_date, ram, storage, processor, installed_os) FROM stdin;
+ASTH-001	Headset	Assigned	EMP003	NOISE 4E	67853	\N	\N	\N	\N	\N	\N	\N
+ASTK-001	Keyboard	Assigned	EMP003	Lenovo xcv	7890	\N	\N	\N	\N	\N	\N	\N
+ASTL-001	Laptop	Assigned	EMP003	Dell Latitude 4320	98765	\N	\N	\N	\N	\N	\N	\N
+ASTM-001	Monitor	Maintenance	\N	HP	1235	\N	\N	\N	\N	\N	\N	\N
+ASTL-002	Laptop	Assigned	EMP005	Dell Latitude 4320	78907	Dell	Dell	2025-01-08	16GB	512 GB SSD	1th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz (1.38 GHz)	Windows 11 Pro
 \.
 
 
@@ -413,14 +423,15 @@ Engineering
 -- Data for Name: employees; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.employees (employee_id, full_name, department_name, designation, phone, join_date, exit_date, status, date_of_birth, address, gender, emergency_contact_name, emergency_contact_phone, blood_group) FROM stdin;
-EMP002	Sarah Mitchell	Human Resources	HR Manager	+1-555-0102	2020-06-01	\N	active	\N	\N	\N	\N	\N	\N
-EMP004	Sandeep	Engineering	JR Solutions Engineer	6305560838	2026-07-01	\N	active	\N	\N	\N	\N	\N	\N
-EMP005	Test User	Human Resources	Analyst	+1-555-0199	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N
-EMP006	Test User Two	Human Resources	Analyst	+1-555-0200	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N
-EMP003	Mike Chen	Human Resources	IT Administrator	+1-555-0103	2022-01-10	\N	active	\N	\N	\N	\N	\N	\N
-EMP001	John Doe	Human Resources	Senior Software Engineer	+1-555-0101	2021-03-15	\N	active	2001-01-11	1-1109, Shillong	Male	uyoe	890890890	O+
-EMP007	Udhaya S	Engineering	Director-CEO	891036182	2026-08-01	\N	active	\N	\N	\N	\N	\N	\N
+COPY public.employees (employee_id, full_name, department_name, designation, phone, join_date, exit_date, status, date_of_birth, address, gender, emergency_contact_name, emergency_contact_phone, blood_group, profile_picture) FROM stdin;
+EMP002	Sarah Mitchell	Human Resources	HR Manager	+1-555-0102	2020-06-01	\N	active	\N	\N	\N	\N	\N	\N	\N
+EMP005	Test User	Human Resources	Analyst	+1-555-0199	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N	\N
+EMP006	Test User Two	Human Resources	Analyst	+1-555-0200	2024-06-01	\N	active	\N	\N	\N	\N	\N	\N	\N
+EMP001	John Doe	Human Resources	Senior Software Engineer	+1-555-0101	2021-03-15	\N	active	2001-01-11	1-1109, Shillong	Male	uyoe	890890890	O+	\N
+EMP007	Udhaya S	Engineering	Director-CEO	891036182	2026-08-01	2026-08-12	inactive	\N	\N	\N	\N	\N	\N	\N
+EMP004	Sandeep	Engineering	JR Solutions Engineer	6305560838	2026-07-01	\N	active	2005-01-13	DNo: 1-1189-31, NGO COLONY	Male	Patnam Jaideep Das yadav	6301971423	b+	EMP004_1786598157587.jpeg
+EMP008	xyz	Engineering	Senior Software Engineer	630556083	2026-08-13	\N	active	\N	\N	\N	\N	\N	\N	\N
+EMP003	Mike Chen	Human Resources	IT Administrator	+1-555-0103	2022-01-10	\N	active	2000-01-01	PLOT NO. 149, BHARATHI NAGAR	Male	xyz	098989	b+	\N
 \.
 
 
@@ -431,11 +442,12 @@ EMP007	Udhaya S	Engineering	Director-CEO	891036182	2026-08-01	\N	active	\N	\N	\N
 COPY public.leave_balances (employee_id, casual_total, casual_used, sick_total, sick_used) FROM stdin;
 EMP002	12	0	7	0
 EMP003	12	0	7	0
-EMP004	12	0	7	0
 EMP005	12	0	7	0
 EMP006	12	0	7	0
 EMP007	12	0	7	0
 EMP001	12	3	7	0
+EMP008	12	0	7	0
+EMP004	12	10	7	4
 \.
 
 
@@ -447,6 +459,13 @@ COPY public.leaves (id, leave_no, employee_id, leave_type, from_date, to_date, r
 1	LV-001	EMP001	Casual	2026-08-07	2026-08-08	Personal Work	Approved	2026-08-06 15:44:00.345237
 2	LV-002	EMP001	Casual	2026-08-07	2026-08-08	Personal Work	Approved	2026-08-06 15:49:30.54202
 3	LV-003	EMP001	Casual	2026-08-08	2026-08-10	personal work	Approved	2026-08-06 16:05:12.264301
+4	LV-004	EMP004	Casual	2026-08-14	2026-08-15	grvccv 	Approved	2026-08-13 12:51:19.19407
+5	LV-005	EMP004	Casual	2026-08-14	2026-08-15	dsuhdhid	Approved	2026-08-13 12:54:19.397649
+6	LV-006	EMP004	Casual	2026-08-15	2026-08-16	husdhd	Approved	2026-08-13 12:56:58.911784
+7	LV-007	EMP004	Casual	2026-08-22	2026-08-23	mdhnc	Approved	2026-08-13 12:58:57.276798
+8	LV-008	EMP004	Casual	2026-08-13	2026-08-14	dhuduchdch	Approved	2026-08-13 13:00:44.048706
+9	LV-009	EMP004	Sick	2026-08-14	2026-08-15	sjbjdusd	Approved	2026-08-13 13:02:20.278369
+10	LV-010	EMP004	Sick	2026-08-13	2026-08-14	sudghuasdgxuisd	Approved	2026-08-13 13:06:09.412762
 \.
 
 
@@ -462,11 +481,7 @@ COPY public.notifications (id, recipient_role, recipient_id, message, ticket_no,
 6	\N	EMP001	Your ticket TKT-007 was updated to "Rejected"	TKT-007	t	2026-08-06 12:51:58.528627
 4	\N	EMP001	Your ticket TKT-006 was updated to "Approved"	TKT-006	t	2026-08-06 12:50:36.724505
 2	\N	EMP001	Your ticket TKT-005 was updated to "Approved"	TKT-005	t	2026-08-06 12:41:55.231363
-20	HR	\N	New Management ticket TKT-012 raised	TKT-012	t	2026-08-10 12:02:49.544161
-19	ITADMIN	\N	New Hardware ticket TKT-011 raised	TKT-011	t	2026-08-10 11:09:23.55866
-22	ITADMIN	\N	New Hardware ticket TKT-013 raised	TKT-013	t	2026-08-10 12:10:08.450656
 23	\N	EMP001	Your ticket TKT-013 was updated to "Resolved"	TKT-013	t	2026-08-10 12:10:44.159489
-21	\N	EMP004	Your ticket TKT-011 was updated to "Resolved"	TKT-011	t	2026-08-10 12:05:30.791059
 \.
 
 
@@ -513,7 +528,8 @@ EMP002	sarah.mitchell@company.com	$2b$10$G71Cb3deQLhuQafaZQWSNOR9EFy6p2LGabE9r7A
 EMP003	mike.chen@company.com	$2b$10$0zjQ2.KpicYaLstIJxuZEOVGDLsFpmpJ5VefP5emtmWZufVOy1Ko2	ITADMIN	active	f
 EMP004	sandeep.p@company.com	$2b$10$QvRl5b4ivlbWfDzHIt9qg.7O20uRZBD260KxqrPBka1a/3O4e1BEa	EMPLOYEE	active	f
 EMP001	john.doe@company.com	$2b$10$BaOaC5zPWE1.A7hn2B/nRuF0iXk6PR6PqghQLDddBVp5DG2qBin0i	EMPLOYEE	active	f
-EMP007	udhayas@company.com	$2b$10$fxx.ZyjlEchj5yOMbl1neO1r8B113ycR4HKLXAPWjUbn./hqDvYKa	EMPLOYEE	active	f
+EMP007	udhayas@company.com	$2b$10$fxx.ZyjlEchj5yOMbl1neO1r8B113ycR4HKLXAPWjUbn./hqDvYKa	EMPLOYEE	inactive	f
+EMP008	xyz@company.com	$2b$10$Ri.Ga7wTvH.124mZ8Yjc6ePvR6QAw68N3NrN.FyQtLNzGfr1K0Djm	EMPLOYEE	active	f
 \.
 
 
@@ -521,7 +537,7 @@ EMP007	udhayas@company.com	$2b$10$fxx.ZyjlEchj5yOMbl1neO1r8B113ycR4HKLXAPWjUbn./
 -- Name: asset_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.asset_assignments_id_seq', 7, true);
+SELECT pg_catalog.setval('public.asset_assignments_id_seq', 8, true);
 
 
 --
@@ -535,14 +551,14 @@ SELECT pg_catalog.setval('public.audit_logs_id_seq', 1, false);
 -- Name: leaves_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.leaves_id_seq', 3, true);
+SELECT pg_catalog.setval('public.leaves_id_seq', 10, true);
 
 
 --
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notifications_id_seq', 23, true);
+SELECT pg_catalog.setval('public.notifications_id_seq', 37, true);
 
 
 --
@@ -804,5 +820,5 @@ ALTER TABLE ONLY public.tickets
 -- PostgreSQL database dump complete
 --
 
-\unrestrict BuAzNMkwjCj3OL7BOLhWJo232JhwcH8PBTnNSL9tzmu0LPvc1HagStoTGUnaJSd
+\unrestrict qWqnhP23hIBCuZpdISMaMpFvLW1wRgS3ilcak4X8alwYpwUEHJDlILbdus16PPc
 
