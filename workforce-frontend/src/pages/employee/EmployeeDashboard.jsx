@@ -128,7 +128,7 @@ function EmployeeDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Assigned Assets</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #0f766e 0%, #2AA79B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{String(assets.length).padStart(2, '0')}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #0f766e 0%, #2AA79B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900}}>{String(assets.length).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(42,167,155,0.25), rgba(15,118,110,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(42,167,155,0.2)', border: '1px solid rgba(42,167,155,0.3)' }}>
                       <Package size={20} color="#0f766e" />
@@ -174,7 +174,7 @@ function EmployeeDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Open Tickets</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{String(openTickets).padStart(2, '0')}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900, marginBottom: '22px' }}>{String(openTickets).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(220,38,38,0.25), rgba(239,68,68,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(220,38,38,0.2)', border: '1px solid rgba(220,38,38,0.3)' }}>
                       <Ticket size={20} color="#dc2626" />

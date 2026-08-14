@@ -25,7 +25,6 @@ app.use('/api/leaves', leaveRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/salaries', salaryRoutes);
 app.use('/api/notifications', notificationRoutes);
-app.use('/uploads', express.static('uploads'));
 app.get('/api/hr-only', verifyToken, allowRoles('HR'), (req, res) => {
   res.json({ message: `Welcome HR user ${req.user.employee_id}` });
 });
