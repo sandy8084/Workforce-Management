@@ -151,7 +151,7 @@ function EmployeeDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Leave Remaining</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #b45309 0%, #FFC800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{casualLeft + sickLeft}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #b45309 0%, #FFC800 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900 }}>{String(casualLeft + sickLeft).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(255,200,0,0.25), rgba(245,158,11,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(255,200,0,0.2)', border: '1px solid rgba(255,200,0,0.3)' }}>
                       <CalendarDays size={20} color="#b45309" />
@@ -174,7 +174,7 @@ function EmployeeDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Open Tickets</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900, marginBottom: '22px' }}>{String(openTickets).padStart(2, '0')}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '28px', fontWeight: 900, marginTop: '30px' }}>{String(openTickets).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(220,38,38,0.25), rgba(239,68,68,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(220,38,38,0.2)', border: '1px solid rgba(220,38,38,0.3)' }}>
                       <Ticket size={20} color="#dc2626" />
@@ -197,7 +197,7 @@ function EmployeeDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Net Salary</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #065f46 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',fontSize: '28px', fontWeight: 900 }}>{salary?.net_salary?.toLocaleString() || '-'}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #065f46 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',fontSize: '28px', fontWeight: 900, marginTop: '30px' }}>{salary?.net_salary?.toLocaleString() || '-'}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.3)' }}>
                       <Wallet size={20} color="#059669" />

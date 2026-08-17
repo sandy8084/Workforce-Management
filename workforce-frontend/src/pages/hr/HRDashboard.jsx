@@ -94,7 +94,7 @@ function HRDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Total Employees</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #2AA79B, #23897f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{employees.length}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #2AA79B, #23897f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900}}>{String(employees.length).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(42,167,155,0.25), rgba(35,137,127,0.15))', boxShadow: '0 8px 20px rgba(42,167,155,0.2)', border: '1px solid rgba(42,167,155,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Users size={20} color="#2AA79B" />
@@ -114,7 +114,7 @@ function HRDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Active Employees</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #059669, #047857)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{active}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #059669, #047857)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{String(active).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(5,150,105,0.25), rgba(4,120,87,0.15))', boxShadow: '0 8px 20px rgba(5,150,105,0.2)', border: '1px solid rgba(5,150,105,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <UserCheck size={20} color="#059669" />
@@ -134,7 +134,7 @@ function HRDashboard() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                     <div>
                       <div className="label">Departments</div>
-                      <div className="value" style={{ background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>{departments.length}</div>
+                      <div className="value" style={{ background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900, marginTop: '30px' }}>{String(departments.length).padStart(2, '0')}</div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(139,92,246,0.25), rgba(124,58,237,0.15))', boxShadow: '0 8px 20px rgba(139,92,246,0.2)', border: '1px solid rgba(139,92,246,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Building2 size={20} color="#8b5cf6" />
@@ -155,7 +155,7 @@ function HRDashboard() {
                     <div>
                       <div className="label">Leave Requests</div>
                       <div className="value" style={{ background: 'linear-gradient(135deg, #FFC800, #FFD700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '28px', fontWeight: 900 }}>
-                        {pendingLeaves}
+                        {String(pendingLeaves).padStart(2, '0')}
                       </div>
                     </div>
                     <div style={{ width: '50px', height: '50px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(255,200,0,0.25), rgba(255,215,0,0.15))', boxShadow: '0 8px 20px rgba(255,200,0,0.2)', border: '1px solid rgba(255,200,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
